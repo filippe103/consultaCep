@@ -1,0 +1,48 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" controller="primeiroBotaoController">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="CEP" type="String"/>
+    <aura:attribute name="retornoViaCEP" type="Object"/>
+
+    <aura:html tag="style">
+        .botaoIcone.slds-p-around_small.slds-size_6-of-12{
+            margin-top: 27px !important;
+        }
+    </aura:html>
+
+    <header class="slds-modal__header">
+        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Busca Endereço</h2>
+    </header>
+    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+        <lightning:layout multipleRows="true">
+            <!-- Linha 1 -->
+            <lightning:layoutItem padding="around-small" size="6">
+                <lightning:input name="cep" label="CEP" value="{!v.CEP}"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="around-small" size="6" class="botaoIcone">
+                <lightning:buttonIcon iconName="utility:search" variant="bare" alternativeText="Busca" onclick="{!c.searchCEP}"/>
+            </lightning:layoutItem>    
+
+            <!-- Linha 2 -->
+            <lightning:layoutItem padding="around-small" size="6">
+                <lightning:input name="rua" label="Rua" value="{!v.retornoViaCEP.logradouro}"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="around-small" size="6">
+                <lightning:input name="bairro" label="Bairro" value="{!v.retornoViaCEP.bairro}"/>
+            </lightning:layoutItem>
+
+            <!-- Linha 3 -->
+            <lightning:layoutItem padding="around-small" size="6">
+                <lightning:input name="cidade" label="Cidade" value="{!v.retornoViaCEP.localidade}"/>
+            </lightning:layoutItem>
+            <lightning:layoutItem padding="around-small" size="6">
+                <lightning:input name="estado" label="Estado" value="{!v.retornoViaCEP.uf}"/>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+    <footer class="slds-modal__footer">
+        <button class="slds-button slds-button_neutral" onclick="{!c.cancel}">Cancelar</button>
+        <button class="slds-button slds-button_brand" onclick="{!c.salvarEndereco}">Salvar</button>
+    </footer>
+
+</aura:component>
